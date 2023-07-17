@@ -15,7 +15,7 @@
     store.mutateSearch('');
     searchTxt.value = '';
   };
-  const toggle = (event): void => {
+  const toggle = (event: Object): void => {
     olPanel.value.toggle(event);
 }
   watch(viewValue, (vw) =>{
