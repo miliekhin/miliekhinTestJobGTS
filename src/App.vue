@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { useEventStore } from "@/stores/eventStore";
   import type { Event } from '@/types/types';
-  import { RouterLink, RouterView } from 'vue-router'
   import { onMounted, onUnmounted, ref } from "vue";
   import EventCard from "@/components/EventCard.vue";
   import type { PageState } from "primevue/paginator";
