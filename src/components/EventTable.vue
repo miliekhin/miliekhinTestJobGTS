@@ -1,8 +1,10 @@
 <script setup lang="ts">
   import { DataTableRowSelectEvent } from "primevue/datatable";
   import { useEventStore } from "@/stores/eventStore";
+  import { inject, onMounted } from "vue";
 
   const store = useEventStore();
+  const changeTitle = inject<Function>('changeTitle');
 
   const onRowSelect = (evt: DataTableRowSelectEvent): void => {
     store.mutateEventsSelect(evt.data.id, true);
@@ -12,6 +14,9 @@
     store.mutateEventsSelect(evt.data.id, false);
   };
   const classRead = (isRead: boolean): string => isRead ? 'font-normal' : 'font-semibold';
+  onMounted(() => {
+    changeTitle?.('Таблица');
+  });
 </script>
 
 <template>

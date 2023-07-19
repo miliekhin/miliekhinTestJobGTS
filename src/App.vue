@@ -2,7 +2,7 @@
   import { useEventStore } from "@/stores/eventStore";
   import type { Event } from '@/types/types';
   import { RouterView, useRoute } from "vue-router";
-  import { onMounted, onUnmounted } from "vue";
+  import { onMounted, onUnmounted, provide } from "vue";
   import type { PageState } from "primevue/paginator";
   import CommandPanel from "@/components/CommandPanel.vue";
   import {
@@ -68,10 +68,13 @@
         }
       }
   };
-
   const showPage = (pg: PageState): void => {
     store.mutateEventsPage(pg.page);
   }
+  const changeTitle = (name: string): void => {
+    document.title = `Журнал событий - ${name}`
+  }
+  provide('changeTitle', changeTitle);
 </script>
 
 <template>

@@ -20,15 +20,14 @@
   const toggle = (event: Object): void => {
     olPanel.value.toggle(event);
   }
- watch(viewValue, (vw): void => {
-   if (!vw) {
-     viewValue.value = structuredClone(route.name === 'cards' ? optCards : optTable);
-     return;
-   }
-   if (route.name === vw.view) {
-     return;
-   }
-    changeTitle(vw.view);
+  watch(viewValue, (vw): void => {
+    if (!vw) {
+      viewValue.value = structuredClone(route.name === 'cards' ? optCards : optTable);
+      return;
+    }
+    if (route.name === vw.view) {
+      return;
+    }
     router.push({name: vw.view })
   });
   watch(route, (rt): void => {
@@ -37,13 +36,6 @@
     }
     viewValue.value = structuredClone(rt.name === 'cards' ? optCards : optTable);
     viewValue.value.icon = viewOptions.value.filter((itm) => itm.view === rt.name)[0].icon;
-    changeTitle(rt.name as string);
-  });
-  const changeTitle = (name: string) => {
-    document.title = `Журнал событий - ${name === 'cards' ? 'Карточки' : 'Таблица'}`
-  }
-  defineExpose({
-    viewValue,
   });
 </script>
 
