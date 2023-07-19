@@ -1,8 +1,14 @@
 <script setup lang="ts">
   import { useEventStore } from "@/stores/eventStore";
   import EventCard from "@/components/EventCard.vue";
+  import { inject, onMounted } from "vue";
 
   const store = useEventStore();
+  const changeTitle = inject<Function>('changeTitle');
+
+  onMounted(() => {
+    changeTitle?.('Карточки');
+  });
 </script>
 
 <template>
