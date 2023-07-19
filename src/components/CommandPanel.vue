@@ -21,6 +21,10 @@
     olPanel.value.toggle(event);
   }
  watch(viewValue, (vw): void => {
+   if (!vw) {
+     viewValue.value = structuredClone(route.name === 'cards' ? optCards : optTable);
+     return;
+   }
    if (route.name === vw.view) {
      return;
    }
