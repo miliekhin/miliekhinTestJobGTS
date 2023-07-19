@@ -82,6 +82,7 @@
       @click="toggle"
     />
     <OverlayPanel ref="olPanel">
+      <h4>Описание</h4>
       <p class="text-lg">
         События добавляются по таймеру со случайным интервалом.<br>
         Всего 36 событий.<br>
