@@ -1,27 +1,32 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from "vue";
   import { DataTableRowSelectEvent } from "primevue/datatable";
   import { useEventStore } from "@/stores/eventStore";
-  import { inject, onMounted } from "vue";
 
   const store = useEventStore();
-  const changeTitle = inject<Function>('changeTitle');
+  const lastEventUnselect = ref(null);
+  const selectedRows = ref<Event[]>();
 
   const onRowSelect = (evt: DataTableRowSelectEvent): void => {
     store.mutateEventsSelect(evt.data.id, true);
   };
   const onRowUnselect = (evt: DataTableRowSelectEvent): void => {
-    store.lastTableEventUnselect = evt.data.id;
+    lastEventUnselect.value = evt.data.id;
     store.mutateEventsSelect(evt.data.id, false);
   };
   const classRead = (isRead: boolean): string => isRead ? 'font-normal' : 'font-semibold';
-  onMounted(() => {
-    changeTitle?.('Таблица');
+  onBeforeMount(() => {
+    selectedRows.value = store.events.filter((itm) => itm.isSelected);
+  });
+  defineExpose({
+    lastEventUnselect,
+    selectedRows,
   });
 </script>
 
 <template>
   <DataTable
-    v-model:selection="store.selectedTableRows"
+    v-model:selection="selectedRows"
     :value="store.paginatedEvents"
     selectionMode="multiple"
     :metaKeySelection="false"

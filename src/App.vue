@@ -1,15 +1,16 @@
 <script setup lang="ts">
   import { useEventStore } from "@/stores/eventStore";
   import type { Event } from '@/types/types';
-  import { RouterView, useRoute } from "vue-router";
-  import { onMounted, onUnmounted, provide } from "vue";
+  import { RouterLink, RouterView } from 'vue-router'
+  import { onMounted, onUnmounted, ref } from "vue";
+  import EventCard from "@/components/EventCard.vue";
   import type { PageState } from "primevue/paginator";
+  import EventTable from "@/components/EventTable.vue";
   import CommandPanel from "@/components/CommandPanel.vue";
   import {
     msMax,
     msMin,
     maxDataItems,
-    PageRows,
     names,
     levels,
     messages,
@@ -17,7 +18,6 @@
   } from "@/constances";
 
   const store = useEventStore();
-  const route = useRoute();
   let generedItems: number = 0;
 
   const eventMessage = (id: number): Event => {
@@ -36,6 +36,7 @@
     }
   };
 
+  const evTable = ref<InstanceType<typeof EventTable> | null>(null)
   const startDataGen = (): void => {
     const randomTimeout = Math.floor(Math.random() * (msMax - msMin + 1) + msMin);
     if (maxDataItems > generedItems) {
@@ -57,27 +58,36 @@
     if (evt.code === 'Space') {
       evt.preventDefault();
 
-      if (route.name !== 'table') {
+      if (store.currentView !== 'table') {
         store.mutateEventsRead();
-      } else if (store.selectedTableRows.length) {
-          if (store.lastTableEventUnselect !== null) {
-            store.mutateEventsSelect(store.lastTableEventUnselect, true);
-          }
-          store.lastTableEventUnselect = null;
+      } else if (evTable.value!.lastEventUnselect !== null) {
+          store.mutateEventsSelect(evTable.value!.lastEventUnselect, true);
+          evTable.value!.lastEventUnselect = null;
           store.mutateEventsRead();
+          evTable.value!.selectedRows = [];
         }
       }
   };
+
   const showPage = (pg: PageState): void => {
     store.mutateEventsPage(pg.page);
   }
-  const changeTitle = (name: string): void => {
-    document.title = `Журнал событий - ${name}`
-  }
-  provide('changeTitle', changeTitle);
 </script>
 
 <template>
+<!--  <header>-->
+
+<!--    <div class="wrapper">-->
+<!--      <HelloWorld msg="You did it!" />-->
+
+<!--      <nav>-->
+<!--        <RouterLink to="/">Home</RouterLink>-->
+<!--        <RouterLink to="/about">About</RouterLink>-->
+<!--      </nav>-->
+<!--    </div>-->
+<!--  </header>-->
+
+<!--  <RouterView />-->
   <div
     v-if="!store.search && !store.paginatedEvents.length"
     class="text-center"
@@ -94,10 +104,20 @@
       <CommandPanel />
     </template>
     <div class="m-0">
-      <RouterView />
+      <div
+        v-if="store.currentView === 'cards'"
+        class="flex flex-initial flex-wrap"
+      >
+        <EventCard
+          v-for="(ev, idx) in store.paginatedEvents"
+          :key="idx"
+          :event="ev"
+        />
+      </div>
+      <EventTable v-else ref="evTable"/>
       <Paginator
         class="mt-5"
-        :rows="PageRows"
+        :rows="9"
         :totalRecords="store.filteredEventsLength"
         @page="showPage"
       />

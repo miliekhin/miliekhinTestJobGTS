@@ -16,7 +16,7 @@
 
 ## Стек
 
-Vue 3 Composition API, VueRouter, Pinia, TypeScript, PrimeVue.
+Vue 3 Composition API. Pinia. TypeScript. JavaScript.
 
 [![Demo](VideoEventsLog.gif)](VideoEventsLog.gif)
 

@@ -1,41 +1,28 @@
 <script setup lang="ts">
   import { ref, watch } from "vue";
   import { useEventStore } from "@/stores/eventStore";
-  import { useRouter, useRoute } from 'vue-router'
   import type { ViewValue } from "@/types/types";
 
   const store = useEventStore();
-  const router = useRouter();
-  const route = useRoute();
   const olPanel = ref();
   const searchTxt = ref<string>('');
-  const optCards: ViewValue = { icon: 'pi pi-th-large', view: 'cards' };
-  const optTable: ViewValue = { icon: 'pi pi-align-justify', view: 'table' };
-  const viewOptions = ref<ViewValue[]>([optCards, optTable]);
-  const viewValue = ref<ViewValue>( structuredClone(route.name === 'cards' ? optCards : optTable));
+  const viewValue = ref<ViewValue>({ icon: 'pi pi-th-large', view: 'cards' });
+  const viewOptions = ref<ViewValue[]>([
+                  { icon: 'pi pi-th-large', view: 'cards' },
+                  { icon: 'pi pi-align-justify', view: 'table' },
+              ]);
   const resetSearch = (): void => {
     store.mutateSearch('');
     searchTxt.value = '';
   };
-  const toggle = (event: Object): void => {
+  const toggle = (event): void => {
     olPanel.value.toggle(event);
-  }
-  watch(viewValue, (vw): void => {
-    if (!vw) {
-      viewValue.value = structuredClone(route.name === 'cards' ? optCards : optTable);
-      return;
-    }
-    if (route.name === vw.view) {
-      return;
-    }
-    router.push({name: vw.view })
+}
+  watch(viewValue, (vw) =>{
+    store.mutateCurrentView(vw?.view ?? 'cards');
   });
-  watch(route, (rt): void => {
-    if (rt.name === viewValue.value.view) {
-      return;
-    }
-    viewValue.value = structuredClone(rt.name === 'cards' ? optCards : optTable);
-    viewValue.value.icon = viewOptions.value.filter((itm) => itm.view === rt.name)[0].icon;
+  defineExpose({
+    viewValue,
   });
 </script>
 
@@ -86,20 +73,20 @@
       <p class="text-lg">
         События добавляются по таймеру со случайным интервалом.<br>
         Всего 36 событий.<br>
-        Данные генерируются случайно, но в них есть некоторые закономерности.
+        Данные генерируются случайно, но в них есть некоторые зависимости.
       </p>
       <p class="text-lg">
         Непрочитанные события в карточках выделены темной рамкой.<br>
         События выделяются по клику.<br>
-        По нажатию на пробел, события отмечаются как прочитанные, или как не прочитанные.
+        По нажатию на пробел, события отмечаются как прочитанные или как не прочитанные.
       </p>
       <p class="text-lg">
         Непрочитанные события в таблице выделены полужирным шрифтом.<br>
         События можно выделить по клику или пробелу.<br>
-        По нажатию на пробел, события отмечаются как прочитанные, или как не прочитанные.
+        По нажатию на пробел, события отмечаются как прочитанные или как не прочитанные.
       </p>
       <p class="text-lg">
-        При переключении режима представления, состояния поиска, событий, и пагинация сохраняются.
+        При переключении режима представления состояния поиска, событий, и пагинация сохраняются.
       </p>
     </OverlayPanel>
   </div>
