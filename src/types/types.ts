@@ -1,10 +1,15 @@
+export type Level ={
+  color: string,
+  icon: string,
+  text: string,
+}
 export type Event = {
   id: number,
   responsible: string,
   photoUrl: string,
   text: string,
   hardware: string,
-  level: Object,
+  level: Level,
   time: string,
   isRead: boolean,
   isSelected: boolean,

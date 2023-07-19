@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useEventStore } from "@/stores/eventStore";
   import type { Event } from '@/types/types';
+  import { RouterLink, RouterView } from 'vue-router'
   import { onMounted, onUnmounted, ref } from "vue";
   import EventCard from "@/components/EventCard.vue";
   import type { PageState } from "primevue/paginator";
@@ -74,6 +75,19 @@
 </script>
 
 <template>
+<!--  <header>-->
+
+<!--    <div class="wrapper">-->
+<!--      <HelloWorld msg="You did it!" />-->
+
+<!--      <nav>-->
+<!--        <RouterLink to="/">Home</RouterLink>-->
+<!--        <RouterLink to="/about">About</RouterLink>-->
+<!--      </nav>-->
+<!--    </div>-->
+<!--  </header>-->
+
+<!--  <RouterView />-->
   <div
     v-if="!store.search && !store.paginatedEvents.length"
     class="text-center"
