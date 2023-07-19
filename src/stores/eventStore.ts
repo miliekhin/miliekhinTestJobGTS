@@ -8,8 +8,6 @@ export const useEventStore = defineStore('eventStore', () => {
   const currentPage = ref<number>(0);
   const eventsPerPage = ref<number>(9);
   const events = ref<Event[]>([]);
-  const selectedTableRows = ref<Event[]>([]);
-  const lastTableEventUnselect = ref<number | null>(null);
   const filteredEvents = computed<Event[]>(() => events.value.filter(
     (item) => item.text.includes(search.value))
   );
@@ -25,7 +23,9 @@ export const useEventStore = defineStore('eventStore', () => {
   }
   function mutateEventsSelect(id: number, select: boolean): void {
     events.value[id].isSelected = select;
-    selectedTableRows.value = events.value.filter((itm) => itm.isSelected);
+  }
+  function mutateCurrentView(view: string): void {
+    currentView.value = view;
   }
   function mutateEventsPage(page: number): void {
     currentPage.value = page;
@@ -49,9 +49,8 @@ export const useEventStore = defineStore('eventStore', () => {
     mutateEventsRead,
     paginatedEvents,
     mutateEventsPage,
+    mutateCurrentView,
     mutateSearch,
     filteredEventsLength,
-    selectedTableRows,
-    lastTableEventUnselect,
   };
 });

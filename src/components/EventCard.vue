@@ -43,10 +43,10 @@
             <td v-if="key === 'level'">
               <span :class="['font-semibold', event[key].color]">
                 <i :class="['pi', event[key].icon]" />
-                {{ event[key].text }}
+                {{event[key].text}}
               </span>
             </td>
-            <td v-else>{{ event[key] }}</td>
+            <td v-else>{{event[key]}}</td>
           </tr>
         </tbody>
       </table>
