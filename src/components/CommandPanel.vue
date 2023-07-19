@@ -1,26 +1,43 @@
 <script setup lang="ts">
   import { ref, watch } from "vue";
   import { useEventStore } from "@/stores/eventStore";
+  import { useRouter, useRoute } from 'vue-router'
   import type { ViewValue } from "@/types/types";
 
   const store = useEventStore();
+  const router = useRouter();
+  const route = useRoute();
   const olPanel = ref();
   const searchTxt = ref<string>('');
-  const viewValue = ref<ViewValue>({ icon: 'pi pi-th-large', view: 'cards' });
-  const viewOptions = ref<ViewValue[]>([
-                  { icon: 'pi pi-th-large', view: 'cards' },
-                  { icon: 'pi pi-align-justify', view: 'table' },
-              ]);
+  const optCards: ViewValue = { icon: 'pi pi-th-large', view: 'cards' };
+  const optTable: ViewValue = { icon: 'pi pi-align-justify', view: 'table' };
+  const viewOptions = ref<ViewValue[]>([optCards, optTable]);
+  const viewValue = ref<ViewValue>( structuredClone(route.name === 'cards' ? optCards : optTable));
   const resetSearch = (): void => {
     store.mutateSearch('');
     searchTxt.value = '';
   };
-  const toggle = (event): void => {
+  const toggle = (event: Object): void => {
     olPanel.value.toggle(event);
-}
-  watch(viewValue, (vw) =>{
-    store.mutateCurrentView(vw?.view ?? 'cards');
+  }
+ watch(viewValue, (vw): void => {
+   if (route.name === vw.view) {
+     return;
+   }
+    changeTitle(vw.view);
+    router.push({name: vw.view })
   });
+  watch(route, (rt): void => {
+    if (rt.name === viewValue.value.view) {
+      return;
+    }
+    viewValue.value = structuredClone(rt.name === 'cards' ? optCards : optTable);
+    viewValue.value.icon = viewOptions.value.filter((itm) => itm.view === rt.name)[0].icon;
+    changeTitle(rt.name as string);
+  });
+  const changeTitle = (name: string) => {
+    document.title = `Журнал событий - ${name === 'cards' ? 'Карточки' : 'Таблица'}`
+  }
   defineExpose({
     viewValue,
   });

@@ -1,6 +1,7 @@
 export const msMin: number = 567;
 export const msMax: number = 2345;
 export const maxDataItems: number = 36;
+export const PageRows: number = 9;
 export const names: string[] = [
     'Смирнов В.А.',
     'Капустина С.В.',
