@@ -18,7 +18,7 @@
 
 Vue 3 Composition API, VueRouter, Pinia, TypeScript, PrimeVue.
 
-[VideoEventsLog.mp4](VideoEventsLog.mp4)
+[![Demo](VideoEventsLog.gif)](VideoEventsLog.gif)
 
 ## Project Setup
 
