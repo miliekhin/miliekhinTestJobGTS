@@ -59,11 +59,12 @@
 
       if (route.name !== 'table') {
         store.mutateEventsRead();
-      } else if (store.lastTableEventUnselect !== null) {
-          store.mutateEventsSelect(store.lastTableEventUnselect, true);
+      } else if (store.selectedTableRows.length) {
+          if (store.lastTableEventUnselect !== null) {
+            store.mutateEventsSelect(store.lastTableEventUnselect, true);
+          }
           store.lastTableEventUnselect = null;
           store.mutateEventsRead();
-          store.selectedTableRows= [];
         }
       }
   };

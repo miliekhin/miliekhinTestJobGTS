@@ -37,6 +37,7 @@ export const useEventStore = defineStore('eventStore', () => {
         evt.isSelected = false;
       }
     }
+    selectedTableRows.value = [];
   }
 
   return {
