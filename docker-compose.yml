@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  miliekhin_test_job_gts:
+    build: .
+    container_name: miliekhinTestJobGTS
+    tty: true
+    ports:
+      - "8877:8877"
+#    volumes:
+#      - ./:/
+#      - /node_modules
