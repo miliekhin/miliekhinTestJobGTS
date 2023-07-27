@@ -26,6 +26,8 @@ Vue 3 Composition API, VueRouter, Pinia, TypeScript, PrimeVue.
 docker-compose up
 ```
 
+## localhost:8877
+
 ### Локально
 
 ```sh
