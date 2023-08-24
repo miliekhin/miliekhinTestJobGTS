@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { DataTableRowSelectEvent } from "primevue/datatable";
+  import type { DataTableRowSelectEvent } from "primevue/datatable";
   import { useEventStore } from "@/stores/eventStore";
   import { inject, onMounted } from "vue";
 
