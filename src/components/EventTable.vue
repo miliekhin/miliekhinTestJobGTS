@@ -29,7 +29,7 @@
     @rowSelect="onRowSelect"
     @rowUnselect="onRowUnselect"
   >
-    <Column header="Дата">
+    <ColumnPrime header="Дата">
       <template #body="slotProps">
         <span
           :class="classRead(slotProps.data.isRead)"
@@ -37,36 +37,36 @@
           {{ slotProps.data.time }}
         </span>
       </template>
-    </Column>
-    <Column header="Важность">
+    </ColumnPrime>
+    <ColumnPrime header="Важность">
       <template #body="slotProps">
         <span :class="[classRead(slotProps.data.isRead), slotProps.data.level.color]">
           <i :class="['pi', slotProps.data.level.icon]" />
           {{ slotProps.data.level.text }}
         </span>
       </template>
-    </Column>
-    <Column header="Оборудование">
+    </ColumnPrime>
+    <ColumnPrime header="Оборудование">
       <template #body="slotProps">
         <span :class="classRead(slotProps.data.isRead)">
           {{ slotProps.data.hardware }}
         </span>
       </template>
-    </Column>
-    <Column header="Сообщение">
+    </ColumnPrime>
+    <ColumnPrime header="Сообщение">
       <template #body="slotProps">
         <span :class="classRead(slotProps.data.isRead)">
           {{ slotProps.data.text }}
         </span>
       </template>
-    </Column>
-    <Column header="Ответственный">
+    </ColumnPrime>
+    <ColumnPrime header="Ответственный">
       <template #body="slotProps">
         <span :class="classRead(slotProps.data.isRead)">
           {{ slotProps.data.responsible }}
         </span>
       </template>
-    </Column>
+    </ColumnPrime>
   </DataTable>
 </template>
 

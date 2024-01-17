@@ -64,7 +64,7 @@
         size="small"
         @input="store.mutateSearch(searchTxt)"
       />
-      <Button
+      <ButtonPrime
         icon="pi pi-times"
         size="small"
         severity="secondary"
@@ -73,7 +73,7 @@
         @click="resetSearch"
       />
     </div>
-    <Button
+    <ButtonPrime
       class="ml-3"
       type="button"
       icon="pi pi-paperclip"

@@ -24,15 +24,14 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(PrimeVue);
-app.component('Avatar', Avatar);
-app.component('Paginator', Paginator);
-app.component('Panel', Panel);
+app.component('AvatarPrime', Avatar);
+app.component('PaginatorPrime', Paginator);
+app.component('PanelPrime', Panel);
 app.component('SelectButton', SelectButton);
 app.component('DataTable', DataTable);
-app.component('Column', Column);
+app.component('ColumnPrime', Column);
 app.component('InputText', InputText);
-app.component('Button', Button);
+app.component('ButtonPrime', Button);
 app.component('OverlayPanel', OverlayPanel);
-
 
 app.mount('#app');

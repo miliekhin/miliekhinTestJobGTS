@@ -85,7 +85,7 @@
     <i class="pi pi-spin pi-cog mt-8" style="font-size: 5rem"></i>
     <h2 class="text-500">Загрузка...</h2>
   </div>
-  <Panel
+  <PanelPrime
     v-else
     class="board p-0"
     header="Журнал событий"
@@ -95,14 +95,14 @@
     </template>
     <div class="m-0">
       <RouterView />
-      <Paginator
+      <PaginatorPrime
         class="mt-5"
         :rows="PageRows"
         :totalRecords="store.filteredEventsLength"
         @page="showPage"
       />
     </div>
-  </Panel>
+  </PanelPrime>
 </template>
 
 <style scoped>

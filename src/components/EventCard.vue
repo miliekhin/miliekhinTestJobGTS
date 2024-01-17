@@ -46,12 +46,27 @@
                 {{ event[key].text }}
               </span>
             </td>
-            <td v-else>{{ event[key] }}</td>
+            <td v-else>
+              <span
+                class="event-text"
+                :title="event[key]"
+              >
+                {{ event[key] }}
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
-      <div class="col-3 p-1 text-center">
-        <Avatar :image="event.photoUrl" class="shadow-5" size="xlarge" shape="circle" />
+      <div
+        class="col-3 p-1 text-center"
+        title="Ответственный"
+      >
+        <AvatarPrime
+          :image="event.photoUrl"
+          class="shadow-5"
+          size="xlarge"
+          shape="circle"
+        />
         <div class="font-semibold">{{event.responsible}}</div>
       </div>
     </div>
@@ -73,5 +88,11 @@
     border: 0.15rem solid #C7D2FE;
     background: #EEF2FF;
     color: #4338CA;
+  }
+  .event-text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
   }
 </style>
